@@ -14,7 +14,7 @@
 (function( $, undefined ) {
 
 $.fn.pickout = function(option) {
-  console.log("in pickout");
+  // console.log("in pickout");
   var picked = option.picked;
 
   if (!picked) {
