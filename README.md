@@ -1,14 +1,18 @@
-jquery.column.picker
-====================
+##jquery.column.picker
 
-pick columns to display
+###pick table columns out
 
-Simple use
-----------
 <pre>
- $("table#monthTable").pickout({
-      picked:[0, 1, 2] 
- }); 
+// pick columns use index array
+$("table#monthTable").pickout([0, 1, 2]); 
 </pre>
 
-details see demo            
+<pre>
+// pick columns use cell selector string
+$("table#monthTable").pickout("[name=hello]"); 
+</pre>
+
+<pre>
+// pick columns and hide others 
+$("table#monthTable").pickout({picked: "[name=hello]"}); 
+</pre>
