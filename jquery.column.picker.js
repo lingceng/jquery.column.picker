@@ -1,5 +1,5 @@
 /*!
- * jQuery Column Picker Plugin v0.1
+ * jQuery Column Picker Plugin v1.1
  * @requires jQuery v1.3.2 or later
  *
  * Project repository: https://github.com/lingceng/jquery.column.picker
@@ -9,49 +9,78 @@
  * http://jquery.org/license
  *
  * Date: 2012-10-16
+ * Version 1.1 2013-07-04
  */
 
 (function( $, undefined ) {
 
+
+/**
+ * select or pickout columns
+ * @param option array, string or object
+ * 
+ */
 $.fn.pickout = function(option) {
-  // console.log("in pickout");
-  var picked = option.picked;
+    var table = $(this), arr;
 
-  if (!picked) {
-    return null;
-  }
+    
+
+   // option is object such as {picked: [0, 1, 2]}
+   if ($.isPlainObject(option) && option.picked) {
+        table.find("td,th").hide();
+        
+        arr = pickm(table, option.picked); 
+        $(arr).each(function () {
+            $(this).show();
+        });
+       
+    } else {
+        arr = pickm(table, option);
+    }
+
+    return arr;
 
   
-  // show referred columns
-  var lines = $(this).find("tr");
-  
-  
-  // do for every line
-  lines.each(function (){
-    // do for every cell
-    $(this).children().each(function (i) {
-      // if cell index in the array then show
-      if (contains(i, picked)) {
-        $(this).show();
-      } else {
-        $(this).hide();
-      }
-    });
-  });
-  
-  
-  
+};
+
+/**
+ * pick function decorator
+ */
+function pickm(table, option) {
+    var arr = [];
+
+    // option is arr such as  [0, 1, 2]
+    if ($.isArray(option)) {
+        arr = option;
+    // option is string such as  "th[name=hello]", "td[name=hi]"
+    } else if (typeof option === "string") {
+        table.find(option).each(function (index, item) {
+            arr.push($(item).index());
+        });
+    } else {
+        throw "parameter is illegal";   
+    } 
+ 
+
+    return pick(table, arr);
 }
 
-// whether item in array
-function contains(item, array) {
-  for (var i in array) {
-    if (array[i] == item) {
-      return true;
-    }
-  }
+/**
+ * return picked columns
+ *
+ * @param table jQuery object refer to a table
+ * @param arr index array to select
+ *
+ * @return array of columns, each column is a jquery object
+ */
+function pick(table, arr) {
+    var  r=[];
 
-  return false;
+    $(arr).each(function (i) {
+        r.push(table.find("tr > :nth-child("+ (parseInt(arr[i], 10) + 1) +")"));
+    });
+
+    return r;    
 }
 
 })( jQuery );
