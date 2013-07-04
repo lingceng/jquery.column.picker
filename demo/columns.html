@@ -25,6 +25,12 @@
                   picked:[5, 6, 7] 
               });              
           });
+
+          $("button#all").click(function(e) {
+              $("table#monthTable").pickout({
+                  picked:[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11] 
+              });              
+          });
        });
     </script>
   </head>
@@ -35,6 +41,7 @@
             <button id="winter">winter</button>
             <button id="spring">spring</button>
             <button id="favorite">favorite</button>
+            <button id="all">all</button>
     </div>
     <div>
     <table id="monthTable">
