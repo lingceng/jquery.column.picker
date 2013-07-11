@@ -73,7 +73,7 @@ function pickm(table, option, wrapjquery) {
          * @keepother whether to keep other columns
          */
         ret.showcol = function (keepother) {
-            if (keepother) {
+            if (!keepother) {
                 table.find("td,th").hide();
             } 
             this.each(function () {
