@@ -8,6 +8,9 @@
 // it's a array with jquery wrapped: `$(array)`
 $("table#monthTable").pickout([0, 1, 2]);   
 </pre>
+* pick columns use index array  
+  
+        $("table#monthTable").pickout([0, 1, 2]); 
 
 
 <pre>
@@ -15,6 +18,7 @@ $("table#monthTable").pickout([0, 1, 2]);
 // return the columns of cells with name=hello
 $("table#monthTable").pickout("th[name=hello]"); 
 </pre>
+* pick columns use cell selector string
 
 // pick columns by jQuery object 
 var head = $("th[name=hello]");
@@ -33,3 +37,9 @@ $("table#monthTable").pickout("[name=hello]", true).showcol();
 ###version0.3 2013-7-11
 * can select column using jQuery object representing a table cell
 * add showcol() function to show and hide 
+        $("table#monthTable").pickout("[name=hello]"); 
+  
+* pick columns and hide others 
+
+        $("table#monthTable").pickout({picked: "[name=hello]"}); 
+
