@@ -16,15 +16,29 @@
         ok(typeof jQuery === 'function', "jQuery is a function");
         ok(typeof $("#monthTable").pickout === 'function', "$('#monthTable').pickout is a function");
     });
+
     test( "test pickout selector function", function() {
         throws( function() {$("#monthTable").pickout()}, /parameter/,  "raised error message contains 'parameter' when parameter is empty");
-        ok($.isArray( $("#monthTable").pickout([0, 1, 3]) ), "column index array parameter is ok");
-        ok($.isArray( $("#monthTable").pickout("th[name=January],th[name=March]") ), "string selector parameter is ok");
+
+        ok($.isArray( $("#monthTable").pickout([0, 1, 3]) ), "pickout with column index array parameter");
+        ok($.isArray( $("#monthTable").pickout("th[name=January],th[name=March]") ), "pickout with string selector parameter");
+
+        var cell = $("th[name=January],th[name=March]");
+        ok($.isArray( $("#monthTable").pickout(cell) ), "pickout jquery object cell parameter");
+
+        ok($("#monthTable").pickout([1], true).jquery, "return jquery object when second parameter is true");
     });
+
     test( "test pickout show and hide function, compatible to old", function() {
-        $("#monthTable").pickout({picked: [0, 1, 2]});
+        $("#monthTable").pickout({picked: [0]});
         
-        ok($("#monthTable").find("tr th:eq(0)").is(":visible"), "pickout show and hide ok");
+        ok($("#monthTable").find("tr th:eq(0)").is(":visible"), "show and hide using pickout is ok");
+    });
+
+    test( "test showcol show and hide function", function() {
+        var cell = $("#monthTable").pickout([1], true).showcol();
+
+        ok($("#monthTable").find("tr th:eq(1)").is(":visible"), "show and hide using showcol() is ok");
     });
   </script>
   
