@@ -4,8 +4,7 @@
 
 * pick columns use index array  
   
-        // return the first, second and third colomns of the table, 
-        // it's a array with jquery wrapped: `$(array)`
+        // return the first, second and third colomns of the table
         $("table#monthTable").pickout([0, 1, 2]);   
 
 
