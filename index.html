@@ -31,37 +31,37 @@
     <div id="content-wrapper">
       <div class="inner clearfix">
         <section id="main-content">
-          <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Simple usage</h3>
-<p>jquery.column.picker can pick columns out easilly, whether use index array such as [0, 1, 2] to pickout first, second and third column, or use jquery select string such as "[name=hello]"</p>
+          <h3><a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Simple usage</h3>
+
+           <p>jquery.column.picker can pick columns out easilly, whether use index array such as [0, 1, 2] to pickout first, second and third column, or use jquery select string such as "[name=hello]"</p>
+
 <script type="text/javascript" > 
-       jQuery(function($) {
+    jQuery(function($) {
+            var table = $("table#monthTable"); 
                       
           $("button#winter").click(function(e) {
-              $("table#monthTable").pickout({
-                  // array of index number
-                  picked:[9, 10, 11] 
+              // array of index number parameter
+              // return jQuery wrapped array
+              table.pickout( [9, 10, 11], true).each(function() {
+                  $(this).css("color", "yellow");
               });              
           });
 
           $("button#spring").click(function(e) {
-              $("table#monthTable").pickout({
-                  // selector string for cell
-                  picked:"th[catalog=spring]"
-              });              
-          });
-
-          $("button#favorite").click(function(e) {
-              $($("table#monthTable").pickout( [5, 6, 7] )).
-              each(function (i, item) {
-                    $(this).css("color", "red");
+              // selector string parameter
+              table.pickout("th[catalog=spring]", true).each(function() {
+                     $(this).css("color", "cyan");
                   });              
           });
 
+          $("button#favorite").click(function(e) {
+              // show the picked hide others
+              table.pickout([5, 6, 7], true).showcol();
+          });
+
           $("button#all").click(function(e) {
-              $("table#monthTable").pickout({
-                  picked:"th"
-              });              
+              // show all 
+              table.pickout("th", true).showcol();              
           });
        });
 </script>
@@ -119,39 +119,39 @@
     </table>
 
     <div>
-        <pre><code>
-              $($("table#monthTable").pickout( [5, 6, 7] )).
-              each(function (i, item) {
-                    $(this).css("color", "red");
-                  });              
-</code></pre>
         <button id="favorite">favorite</button>
-
-<pre><code>
-              $("table#monthTable").pickout({
-                  // array of index number
-                  picked:[9, 10, 11] 
-              });              
-</code></pre>
         <button id="winter">winter</button>
-
-<pre><code>
-              $("table#monthTable").pickout({
-                  // selector string for cell
-                  picked:"th[catalog=spring]"
-              });              
-</code></pre>
         <button id="spring">spring</button>
-
-
-
+        <button id="all">all</button>
         <pre><code>
-              $("table#monthTable").pickout({
-                  picked:"th"
+          $("button#winter").click(function(e) {
+              // array of index number parameter
+              // return jQuery wrapped array
+              table.pickout( [9, 10, 11], true).each(function() {
+                  $(this).css("color", "yellow");
               });              
-</code></pre>
-            <button id="all">all</button>
-</div>
+          });
+
+          $("button#spring").click(function(e) {
+              // selector string parameter
+              table.pickout("th[catalog=spring]", true).each(function() {
+                     $(this).css("color", "cyan");
+                  });              
+          });
+
+          $("button#favorite").click(function(e) {
+              // show the picked hide others
+              table.pickout([5, 6, 7], true).showcol();
+          });
+
+          $("button#all").click(function(e) {
+              // show all 
+              table.pickout("th", true).showcol();              
+          }); 
+        </code></pre>
+
+    </div>
+
         </section>
 
         <aside id="sidebar">

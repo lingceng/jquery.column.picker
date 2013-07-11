@@ -20,25 +20,29 @@
  * @param option array, string or object
  * 
  */
-$.fn.pickout = function(option) {
-    var table = $(this), arr;
+$.fn.pickout = function(option, wrapjquery) {
+    var table = $(this), ret;
 
-    
+    if (!option) {
+        throw "parameter is illegal"; 
+    }
 
+
+   // @deprecated
    // option is object such as {picked: [0, 1, 2]}
    if ($.isPlainObject(option) && option.picked) {
         table.find("td,th").hide();
         
-        arr = pickm(table, option.picked); 
-        $(arr).each(function () {
+        ret = pickm(table, option.picked, wrapjquery); 
+        $(ret).each(function () {
             $(this).show();
         });
        
     } else {
-        arr = pickm(table, option);
-    }
+        ret = pickm(table, option, wrapjquery);
+    } 
 
-    return arr;
+    return ret;
 
   
 };
@@ -46,23 +50,39 @@ $.fn.pickout = function(option) {
 /**
  * pick function decorator
  */
-function pickm(table, option) {
-    var arr = [];
+function pickm(table, option, wrapjquery) {
+    var arr = [], ret;
 
     // option is arr such as  [0, 1, 2]
     if ($.isArray(option)) {
         arr = option;
     // option is string such as  "th[name=hello]", "td[name=hi]"
     } else if (typeof option === "string") {
-        table.find(option).each(function (index, item) {
-            arr.push($(item).index());
-        });
+        arr = indexarr(table.find(option));
+    } else if (option.jquery) {
+        arr = indexarr(option);
     } else {
         throw "parameter is illegal";   
     } 
  
+    ret =  pick(table, arr);
 
-    return pick(table, arr);
+    if (wrapjquery === true) {
+        ret = $(ret);
+        /**
+         * @keepother whether to keep other columns
+         */
+        ret.showcol = function (keepother) {
+            if (!keepother) {
+                table.find("td,th").hide();
+            } 
+            this.each(function () {
+                 $(this).show();
+            });
+        }
+    }
+
+    return ret;
 }
 
 /**
@@ -81,6 +101,17 @@ function pick(table, arr) {
     });
 
     return r;    
+}
+
+/**
+ * return index array
+ */
+function indexarr(jqobj) {
+    var arr = [];
+    jqobj.each(function (index, item) {
+            arr.push($(item).index());
+    })
+    return arr;
 }
 
 })( jQuery );
