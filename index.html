@@ -8,10 +8,12 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
     <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/prettify.css"  />
     
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+    <script type="text/javascript" src="javascripts/prettify.js"></script>
 
     <script type="text/javascript" src="assets/jquery-1.7.2.js"></script>
     <script type="text/javascript" src="assets/jquery.column.picker.js"></script>
@@ -23,7 +25,7 @@
     <header>
       <div class="inner">
         <h1>Jquery.column.picker</h1>
-        <h2>pick table columns out</h2>
+        <h2>pick table columns out easily</h2>
         <a href="https://github.com/lingceng/jquery.column.picker" class="button"><small>View project on</small>GitHub</a>
       </div>
     </header>
@@ -36,7 +38,11 @@
            <p>jquery.column.picker can pick columns out easilly, whether use index array such as [0, 1, 2] to pickout first, second and third column, or use jquery select string such as "[name=hello]"</p>
 
 <script type="text/javascript" > 
+
     jQuery(function($) {
+            // make code pretty
+            window.prettyPrint && prettyPrint()
+
             var table = $("table#monthTable"); 
                       
           $("button#winter").click(function(e) {
@@ -119,36 +125,37 @@
     </table>
 
     <div>
-        <button id="favorite">favorite</button>
         <button id="winter">winter</button>
         <button id="spring">spring</button>
+        <button id="favorite">favorite</button>
         <button id="all">all</button>
-        <pre><code>
-          $("button#winter").click(function(e) {
-              // array of index number parameter
-              // return jQuery wrapped array
-              table.pickout( [9, 10, 11], true).each(function() {
-                  $(this).css("color", "yellow");
-              });              
-          });
 
-          $("button#spring").click(function(e) {
-              // selector string parameter
-              table.pickout("th[catalog=spring]", true).each(function() {
-                     $(this).css("color", "cyan");
-                  });              
-          });
+<pre class="prettyprint linenums">
+  $("button#winter").click(function(e) {
+      // array of index number parameter
+      // return jQuery wrapped array
+      table.pickout( [9, 10, 11], true).each(function() {
+          $(this).css("color", "yellow");
+      });              
+  });
 
-          $("button#favorite").click(function(e) {
-              // show the picked hide others
-              table.pickout([5, 6, 7], true).showcol();
-          });
+  $("button#spring").click(function(e) {
+      // selector string parameter
+      table.pickout("th[catalog=spring]", true).each(function() {
+             $(this).css("color", "cyan");
+          });              
+  });
 
-          $("button#all").click(function(e) {
-              // show all 
-              table.pickout("th", true).showcol();              
-          }); 
-        </code></pre>
+  $("button#favorite").click(function(e) {
+      // show the picked hide others
+      table.pickout([5, 6, 7], true).showcol();
+  });
+
+  $("button#all").click(function(e) {
+      // show all 
+      table.pickout("th", true).showcol();              
+  }); 
+</pre>
 
     </div>
 
